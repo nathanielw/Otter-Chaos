@@ -12,7 +12,7 @@ import 'babel-polyfill';
 import * as states from './states';
 
 export function init() {
-  const game = new Phaser.Game(440, 640, Phaser.AUTO);
+  const game = new Phaser.Game(440, 640, Phaser.CANVAS);
 
   // Dynamically add all required game states.
   Object

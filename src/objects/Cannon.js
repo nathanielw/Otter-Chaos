@@ -8,9 +8,10 @@ import Bullet from './Bullet.js';
 
 export default class Cannon extends Phaser.Sprite {
 
-  constructor(state, x, y) {
-    super(state, x, y, 'phaser');
-    this._state = state;
+  constructor(game, x, y) {
+    super(game, x, y, 'phaser');
+    this._game = game;
+    this._targets = [];
 
     this.anchor.set(0.5);
     this.width = 100; // TODO: remove
@@ -25,9 +26,14 @@ export default class Cannon extends Phaser.Sprite {
   }
 
   update() {
-    this.rotation = this._state.physics.arcade.angleToPointer(this) - (Math.PI * 1.5);
+    this._game.physics.arcade.overlap(this._bulletPool, this._targets, (source, target) => {
+      target.onHit();
+      source.kill();
+    });
 
-    if (this._state.input.activePointer.isDown) {
+    this.rotation = this._game.physics.arcade.angleToPointer(this) - (Math.PI * 1.5);
+
+    if (this._game.input.activePointer.isDown) {
       this.fire();
     }
   }
@@ -41,7 +47,7 @@ export default class Cannon extends Phaser.Sprite {
   }
 
   createBulletPool() {
-    this._bulletPool = this._state.add.group();
+    this._bulletPool = this._game.add.group();
     this._bulletPool.classType = Bullet;
     this._bulletPool.enableBody = true;
     this._bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -51,11 +57,15 @@ export default class Cannon extends Phaser.Sprite {
   }
 
   fire() {
-    if (this._state.time.now >= this._lastFired + this._bulletSpacing && this._bulletPool.countDead() > 0) {
-      this._lastFired = this._state.time.now;
+    if (this._game.time.now >= this._lastFired + this._bulletSpacing && this._bulletPool.countDead() > 0) {
+      this._lastFired = this._game.time.now;
       const bullet = this._bulletPool.getFirstDead();
       bullet.reset(this.x, this.y);
-      this._state.physics.arcade.moveToPointer(bullet, this._bulletSpeed);
+      this._game.physics.arcade.moveToPointer(bullet, this._bulletSpeed);
     }
+  }
+
+  registerBulletTarget(target) {
+    this._targets.push(target);
   }
 }
