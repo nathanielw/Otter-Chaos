@@ -6,8 +6,9 @@ import Otter from './objects/Otter';
 
 export default class EnemyManager {
 
-  constructor(state) {
+  constructor(state, sea) {
     this._state = state;
+    this._sea = sea;
     this._spawnDelay = 2000;
     this._otters = this._state.add.group();
     this._otters.classType = Otter;
@@ -19,6 +20,8 @@ export default class EnemyManager {
 
   start() {
     this.setupNext();
+    this._state.time.events.loop(2000, this.decreaseLevel, this);
+
   }
 
   setupNext() {
@@ -31,10 +34,19 @@ export default class EnemyManager {
 
   spawnEnemy() {
     if (this._otters.countLiving() < MAX_ENEMIES) {
-      const otter = this._otters.create(Math.random() * this._state.world.width, 0, 'phaser');
+      const otter = new Otter(this._state.game, 0, 0);
+      this._otters.add(otter);
       otter.init(this);
     }
     this.setupNext();
+  }
+
+  decreaseLevel() {
+    this._otters.forEachExists((otter) => {
+      if (this._sea.containsItem(otter)) {
+        this._sea.changeLevel(1);
+      }
+    });
   }
 
   onEnemyKilled(enemy) {

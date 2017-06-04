@@ -19,7 +19,7 @@ export default class Cannon extends Phaser.Sprite {
 
     this._maxBullets = 50;
     this._bulletSpacing = 350;
-    this._bulletSpeed = 800;
+    this._bulletSpeed = 500;
     this._lastFired = -1;
 
     this.createBulletPool();

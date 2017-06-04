@@ -6,11 +6,9 @@
 
 export default class Otter extends Phaser.Sprite {
 
-  constructor(game, ...args) {
-    super(game, ...args);
+  constructor(game, x, y) {
+    super(game, x, y, 'otter');
 
-    this.width = 60; // TODO: remove
-    this.height = 60; // TODO: remove
     this.anchor.set(0.5, 0);
 
     this._speed = 0.002;
@@ -39,7 +37,7 @@ export default class Otter extends Phaser.Sprite {
     const newX = Phaser.Math.bezierInterpolation(this._points.x, this._progress);
     const newY = Phaser.Math.bezierInterpolation(this._points.y, this._progress);
 
-    this.rotation = Phaser.Math.angleBetween(this.x, this.y, newX, newY);
+    this.rotation = (Math.PI / 2) + Phaser.Math.angleBetween(this.x, this.y, newX, newY);
 
     this.x = newX;
     this.y = newY;

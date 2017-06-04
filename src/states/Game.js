@@ -6,6 +6,7 @@
  */
 
 import Cannon from '../objects/Cannon';
+import Sea from '../objects/Sea';
 import EnemyManager from '../EnemyManager';
 
 export default class Game extends Phaser.State {
@@ -13,12 +14,15 @@ export default class Game extends Phaser.State {
   create(game) {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.stage.backgroundColor = '#df8a26';
+    game.stage.backgroundColor = '#f5ecd4';
 
     const {centerX: x, height: y} = this.world;
-    this._cannon = new Cannon(game, x, y);
 
-    const enemyManager = new EnemyManager(this);
+    this._sea = new Sea(game, 0, this.world.height);
+    this.add.existing(this._sea);
+
+    this._cannon = new Cannon(game, x, y);
+    const enemyManager = new EnemyManager(this, this._sea);
     enemyManager.start();
 
     this.add.existing(this._cannon);

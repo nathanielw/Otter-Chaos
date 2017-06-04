@@ -17,8 +17,18 @@ export default {
   }],
 
   // -- General assets used throughout the game.
-  game: [{
-    key: 'phaser',
-    type: 'image'
-  }]
+  game: [
+    {
+      key: 'phaser',
+      type: 'image'
+    },
+    {
+      key: 'otter',
+      type: 'image'
+    },
+    {
+      key: 'sea',
+      type: 'image'
+    }
+  ]
 };
