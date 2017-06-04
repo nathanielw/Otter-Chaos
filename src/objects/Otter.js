@@ -9,7 +9,7 @@ export default class Otter extends Phaser.Sprite {
   constructor(game, x, y) {
     super(game, x, y, 'otter');
 
-    this.anchor.set(0.5, 0);
+    this.anchor.set(0.5, 0.5);
 
     this._speed = 0.002;
 
@@ -31,6 +31,7 @@ export default class Otter extends Phaser.Sprite {
 
   init(enemyManager) {
     this._enemyManager = enemyManager;
+    this.body.setCircle(this.width/2, 0, 0);
   }
 
   update() {
