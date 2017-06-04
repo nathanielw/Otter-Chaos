@@ -13,7 +13,7 @@ export default class Cannon extends Phaser.Sprite {
     this._game = game;
     this._targets = [];
 
-    this.anchor.set(0.5, 0.88);
+    this.anchor.set(0.5, 0.7);
 
     this._maxBullets = 50;
     this._bulletSpacing = 350;
