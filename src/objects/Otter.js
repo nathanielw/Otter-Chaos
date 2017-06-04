@@ -19,6 +19,7 @@ export default class Otter extends Phaser.Sprite {
     this.anchor.set(0.5, 0.5);
     this._speed = 0.0015 + (0.001 * Math.random());
     this._size = MIN_SIZE + ((MAX_INITIAL_SIZE - MIN_SIZE) * Math.random());
+    this._amountDrunk = 0;
 
     this._points = {
       x: [],
@@ -68,7 +69,9 @@ export default class Otter extends Phaser.Sprite {
   }
 
   drink(source) {
-    source.changeLevel(Math.pow((1 - MIN_SIZE) + this._size, 2));
+    const intake = Math.pow((1 - MIN_SIZE) + this._size, 2);
+    this._amountDrunk += intake;
+    source.changeLevel(intake);
 
     if (this._size < MAX_SIZE) {
       this._size += GROWTH_FACTOR;
@@ -77,5 +80,9 @@ export default class Otter extends Phaser.Sprite {
       this._game.add.tween(this.scale).to( { y: this._size, x: this._size }, 400, Phaser.Easing.Quadratic.Out, true);
       this.body.setCircle(this._size * this.texture.width/2, 0, this.texture.height / 3);
     }
+  }
+
+  getAmountDrunk() {
+    return this._amountDrunk;
   }
 }

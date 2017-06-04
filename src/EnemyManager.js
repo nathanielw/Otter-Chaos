@@ -50,6 +50,7 @@ export default class EnemyManager {
   }
 
   onEnemyKilled(enemy) {
+    this._sea.changeLevel(-enemy.getAmountDrunk());
     this.removeEnemy(enemy);
   }
 
