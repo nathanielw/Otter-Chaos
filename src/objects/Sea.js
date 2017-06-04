@@ -85,6 +85,6 @@ export default class Sea extends Phaser.Graphics {
   }
 
   containsItem(item) {
-    return item.y > this._game.world.height - this.height;
+    return item.y > this._level - this._game.world.height;
   }
 }

@@ -42,7 +42,7 @@ export default class EnemyManager {
   }
 
   decreaseLevel() {
-    this._otters.forEachExists((otter) => {
+    this._otters.forEachAlive((otter) => {
       if (this._sea.containsItem(otter)) {
         this._sea.changeLevel(1);
       }
