@@ -37,6 +37,10 @@ export default {
     {
       key: 'cannon',
       type: 'image'
+    },
+    {
+      key: 'orange',
+      type: 'image'
     }
   ]
 };

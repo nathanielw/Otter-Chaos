@@ -84,7 +84,14 @@ export default class Sea extends Phaser.Graphics {
   }
 
   changeLevel(magnitude) {
-    this._level += magnitude * 5;
+    const newLevel = this._level + magnitude * 5;
+
+
+    if (newLevel < this._game.world.height) {
+      return;
+    }
+
+    this._level = newLevel;
     this._game.add.tween(this).to( { y: this._level }, 400, Phaser.Easing.Quadratic.Out, true);
   }
 
