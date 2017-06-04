@@ -41,6 +41,10 @@ export default {
     {
       key: 'orange',
       type: 'image'
+    },
+    {
+      key: 'bullet',
+      type: 'image'
     }
   ]
 };

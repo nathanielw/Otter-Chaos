@@ -49,7 +49,7 @@ export default class Cannon extends Phaser.Sprite {
     this._bulletPool.classType = Bullet;
     this._bulletPool.enableBody = true;
     this._bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this._bulletPool.createMultiple(this._maxBullets, 'phaser');
+    this._bulletPool.createMultiple(this._maxBullets, 'bullet');
     this._bulletPool.setAll('checkWorldBounds', true);
     this._bulletPool.setAll('outOfBoundsKill', true);
   }

@@ -30,7 +30,8 @@ export default class EnemyManager {
   startWave() {
     this._state.time.events.add(this._waveDuration + this._waveDelay, this.startWave, this);
 
-    const enemyCount = BASE_WAVE_SIZE + (this._round/4 * BASE_WAVE_SIZE);
+    const bigWave = this._round % 4 === 0;
+    const enemyCount = BASE_WAVE_SIZE + (this._round/4 * BASE_WAVE_SIZE) * (bigWave ? 1.8 : 1);
     this._state.time.events.repeat(this._waveDuration / enemyCount, enemyCount, this.spawnEnemy, this);
 
     this._round++;

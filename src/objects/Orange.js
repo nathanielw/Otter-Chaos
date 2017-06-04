@@ -16,7 +16,7 @@ export default class Orange extends Phaser.Sprite {
   }
 
   onHit() {
-    this._sea.changeLevel(-10);
+    this._sea.changeLevel(-4);
     this.kill();
   }
 }
