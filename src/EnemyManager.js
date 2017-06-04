@@ -1,15 +1,18 @@
 const MAX_ENEMIES = 40;
-const MIN_DELAY = 200;
-const DELAY_DECREASE = 100;
+const BASE_WAVE_SIZE = 10;
 
 import Otter from './objects/Otter';
+
 
 export default class EnemyManager {
 
   constructor(state, sea) {
     this._state = state;
     this._sea = sea;
-    this._spawnDelay = 2000;
+    this._waveDelay = 8000;
+    this._waveDuration = 5000;
+    this._round = 1;
+
     this._otters = this._state.add.group();
     this._otters.classType = Otter;
     this._otters.enableBody = true;
@@ -19,17 +22,19 @@ export default class EnemyManager {
   }
 
   start() {
-    this.setupNext();
+    this._state.time.events.add(this._waveDelay, this.startWave, this);
     this._state.time.events.loop(2000, this.decreaseLevel, this);
-
+    this._state.time.events.loop(1500, this.spawnEnemy, this); // trickle
   }
 
-  setupNext() {
-    this._state.time.events.add(this._spawnDelay, this.spawnEnemy, this);
+  startWave() {
+    this._state.time.events.add(this._waveDuration + this._waveDelay, this.startWave, this);
 
-    if (this._spawnDelay - DELAY_DECREASE >= MIN_DELAY) {
-      this._spawnDelay -= DELAY_DECREASE;
-    }
+    const enemyCount = BASE_WAVE_SIZE + (this._round/4 * BASE_WAVE_SIZE);
+    this._state.time.events.repeat(this._waveDuration / enemyCount, enemyCount, this.spawnEnemy, this);
+
+    this._round++;
+    this._waveDuration += 200;
   }
 
   spawnEnemy() {
@@ -38,7 +43,6 @@ export default class EnemyManager {
       this._otters.add(otter);
       otter.init(this);
     }
-    this.setupNext();
   }
 
   decreaseLevel() {
