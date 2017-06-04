@@ -77,6 +77,10 @@ export default class Sea extends Phaser.Graphics {
         bubble.kill();
       }
     });
+
+    if (this._level - this.height > this._game.world.height) {
+      this._game.state.start('GameOver', true, false);
+    }
   }
 
   changeLevel(magnitude) {
