@@ -44,7 +44,7 @@ export default class EnemyManager {
   decreaseLevel() {
     this._otters.forEachAlive((otter) => {
       if (this._sea.containsItem(otter)) {
-        this._sea.changeLevel(1);
+        otter.drink(this._sea);
       }
     });
   }

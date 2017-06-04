@@ -35,7 +35,7 @@ export default class Sea extends Phaser.Graphics {
       wave.anchor.set(0, 0);
       wave.tilePosition.y = -1;
       wave.alpha = Math.pow((i + 1) * (1 / waveCount), 1.5);
-      this._game.add.tween(wave).to( { y: y + 1 * Math.pow(i, 2) }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, -1, true);
+      this._game.add.tween(wave).to( { y: y + 1.2 * Math.pow(i, 2) }, 1800, Phaser.Easing.Quadratic.InOut, true, 0, -1, true);
       this.addChild(wave);
       this._waves.push(wave);
     }
@@ -69,7 +69,7 @@ export default class Sea extends Phaser.Graphics {
   update() {
     this._waves.forEach((wave, i) => {
       const direction = i % 2 === 0 ? -1 : 1;
-      wave.tilePosition.x += (0.1 * (i+1)/2) * direction;
+      wave.tilePosition.x += (0.2 * (i+1)/2) * direction;
     });
 
     this._bubbleEmitter.forEachAlive((bubble) => {

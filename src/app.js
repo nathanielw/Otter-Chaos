@@ -12,7 +12,11 @@ import 'babel-polyfill';
 import * as states from './states';
 
 export function init() {
-  const game = new Phaser.Game(440, 640, Phaser.CANVAS);
+  console.log(window.innerHeight)
+  const height = window.innerHeight;
+  const width = height / 1.45;
+
+  const game = new Phaser.Game(width, height, Phaser.CANVAS);
 
   // Dynamically add all required game states.
   Object
