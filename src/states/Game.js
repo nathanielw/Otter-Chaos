@@ -17,8 +17,6 @@ import EnemyManager from '../EnemyManager';
 export default class Game extends Phaser.State {
 
   create(game) {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#f5ecd4';
 
     const {centerX: x, height: y} = this.world;

@@ -15,12 +15,15 @@ export default class Preloader extends Phaser.State {
     this.load.pack('game', null, assets);
   }
 
-  create() {
+  create(game) {
     // Here is a good place to initialize plugins dependent of any game asset.
     // Don't forget to `import` them first. Example:
     //this.game.myPlugin = this.plugins.add(MyPlugin/*, ... parameters ... */);
 
-    this.state.start('Game');
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    this.state.start('MainMenu');
   }
 
   // --------------------------------------------------------------------------
