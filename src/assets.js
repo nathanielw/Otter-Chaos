@@ -33,6 +33,10 @@ export default {
     {
       key: 'bubble',
       type: 'image'
+    },
+    {
+      key: 'cannon',
+      type: 'image'
     }
   ]
 };

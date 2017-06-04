@@ -9,13 +9,11 @@ import Bullet from './Bullet.js';
 export default class Cannon extends Phaser.Sprite {
 
   constructor(game, x, y) {
-    super(game, x, y, 'phaser');
+    super(game, x, y, 'cannon');
     this._game = game;
     this._targets = [];
 
-    this.anchor.set(0.5);
-    this.width = 100; // TODO: remove
-    this.height = 100; // TODO: remove
+    this.anchor.set(0.5, 0.88);
 
     this._maxBullets = 50;
     this._bulletSpacing = 350;
@@ -60,8 +58,12 @@ export default class Cannon extends Phaser.Sprite {
     if (this._game.time.now >= this._lastFired + this._bulletSpacing && this._bulletPool.countDead() > 0) {
       this._lastFired = this._game.time.now;
       const bullet = this._bulletPool.getFirstDead();
-      bullet.reset(this.x, this.y);
+      bullet.reset(this.x - (bullet.width/2), this.y);
       this._game.physics.arcade.moveToPointer(bullet, this._bulletSpeed);
+      const pumpTween = this._game.add.tween(this.scale).to( { y: 0.8 }, 100, Phaser.Easing.Quadratic.Out);
+      const pumpReverseTween = this._game.add.tween(this.scale).to( { y: 1 }, 100, Phaser.Easing.Quadratic.Out);
+      pumpTween.chain(pumpReverseTween);
+      pumpTween.start();
     }
   }
 
