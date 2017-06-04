@@ -20,6 +20,10 @@ export default class Sea extends Phaser.Graphics {
     this.makeWaves();
   }
 
+  init() {
+    this.makeBubbles();
+  }
+
   makeWaves() {
     this._waves = [];
     const waveCount = 4;
@@ -41,13 +45,38 @@ export default class Sea extends Phaser.Graphics {
     this.endFill();
   }
 
+  makeBubbles() {
+    let emitter = this._game.add.emitter(this._game.world.centerX, this._game.world.height, 100);
+    this._bubbleEmitter = emitter;
+
+    emitter.width = this._game.world.width;
+
+    emitter.makeParticles('bubble');
+
+    emitter.minParticleScale = 0.2;
+    emitter.maxParticleScale = 1;
+
+    emitter.setYSpeed(-200, -80);
+    emitter.setXSpeed(0, 0);
+    emitter.gravity.y = 0;
+
+    emitter.minRotation = 0;
+    emitter.maxRotation = 0;
+
+    emitter.start(false, 8000, 100, 0);
+  }
+
   update() {
     this._waves.forEach((wave, i) => {
       const direction = i % 2 === 0 ? -1 : 1;
       wave.tilePosition.x += (0.1 * (i+1)/2) * direction;
     });
 
-    //this.height = this._level;
+    this._bubbleEmitter.forEachAlive((bubble) => {
+      if (bubble.y < this._level - this.height + WAVE_HEIGHT/2) {
+        bubble.kill();
+      }
+    });
   }
 
   changeLevel(magnitude) {

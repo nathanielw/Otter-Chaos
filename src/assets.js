@@ -29,6 +29,10 @@ export default {
     {
       key: 'sea',
       type: 'image'
+    },
+    {
+      key: 'bubble',
+      type: 'image'
     }
   ]
 };

@@ -20,6 +20,7 @@ export default class Game extends Phaser.State {
 
     this._sea = new Sea(game, 0, this.world.height);
     this.add.existing(this._sea);
+    this._sea.init();
 
     this._cannon = new Cannon(game, x, y);
     const enemyManager = new EnemyManager(this, this._sea);
