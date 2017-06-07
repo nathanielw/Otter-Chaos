@@ -10,6 +10,7 @@ const server = require('browser-sync').create();
 const runSequence = require('run-sequence');
 const bundler = require('../lib/bundler');
 const getNamedBuffer = require('../lib/get-named-buffer');
+const ghPages = require('gulp-gh-pages');
 
 module.exports = function (gulp, $, config) {
   const dirs = config.dirs;
@@ -44,6 +45,10 @@ module.exports = function (gulp, $, config) {
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(dirs.dist)));
 
+  gulp.task('deploy', () =>
+    gulp.src(`${dirs.dist}/**/*`)
+        .pipe(ghPages()));
+
   // The main distribution task.
   gulp.task('dist', done =>
     runSequence('clean', [
@@ -51,6 +56,9 @@ module.exports = function (gulp, $, config) {
       'copyPhaser',
       'bundleDist'
     ], done));
+
+  gulp.task('deploy-dist', done =>
+    runSequence('dist', 'deploy', done));
 
   // Used to test the application bundled for distribution in the browser.
   gulp.task('test-dist', ['dist'], () => server.init(config.server.dist));
