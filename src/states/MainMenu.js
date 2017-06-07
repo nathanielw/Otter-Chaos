@@ -3,7 +3,7 @@
  * ==============
  *
  */
- const PADDING = 20;
+const PADDING = 20;
 
 export default class MainMenu extends Phaser.State {
 

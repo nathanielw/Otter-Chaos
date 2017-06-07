@@ -1,21 +1,11 @@
-# [Otter Chaos](https://example.com/my-game/)
+# Complete and Otter Chaos in a World of Fanta Seas
 
----
+Simple web-based game made as part of a mini hackathon / [coding extravaganza](http://arcton.nz/64hace/winter-17.html).
 
-Congrats! To manage your project and start developing your new game right away,
-the following npm scripts are available:
+Made to fit the themes "chaos" and "fantasy".
 
->   TIP: You can also use Gulp to manage development tasks.
+Created over a couple of days, so may be lacking in polish / not make a whole lot of sense :)
 
-The following npm scripts are also available:
+----
 
-```sh
-npm start         # Or `gulp`: launches the project development environment.
-npm run dist      # Or `gulp dist`: Prepares the game for distribution.
-npm run lint      # Or `gulp lint`: Checks scripts for linting issues.
-npm run clean     # Or `gulp clean`: Deletes build files.
-npm run test-dist # Build and run your project
-```
-
-Should you consider distributing your game as an open source project, please
-choose and [include a LICENSE file](http://choosealicense.com/) for your project.
+Built using the Phaser framework, with the base project generated using [generator-phaser-plus](https://github.com/rblopes/generator-phaser-plus).
